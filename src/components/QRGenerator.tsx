@@ -1,5 +1,4 @@
 import React from "react";
-import { QRCodeCanvas } from "qrcode.react"; // Paquete para generar el código QR
 
 interface QRGeneratorProps {
   link: string;
@@ -8,7 +7,10 @@ interface QRGeneratorProps {
 const QRGenerator: React.FC<QRGeneratorProps> = ({ link }) => {
   return (
     <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-      <QRCodeCanvas value={link} size={200} />
+      <img
+        src={`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(link)}&size=200x200`}
+        alt="QR Code"
+      />
     </div>
   );
 };

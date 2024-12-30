@@ -2,32 +2,20 @@ import React, { useState } from "react";
 import { Box, TextField, Button, Stack } from "@mui/material";
 
 interface TipFormProps {
-  selectedEmployee: string | null;
+  selectedEmployee: string;
   onLinkGenerated: (link: string) => void;
+  onAmountChange: (amount: number | null) => void;
 }
 
-const TipForm: React.FC<TipFormProps> = ({ selectedEmployee, onLinkGenerated }) => {
-  const [amount, setAmount] = useState<string>("");
+const TipForm: React.FC<TipFormProps> = ({ selectedEmployee, onLinkGenerated, onAmountChange }) => {
+  const [amount, setAmount] = useState<number | null>(null);
   const [message, setMessage] = useState<string>("");
-
-  const handlePayment = async () => {
-    if (!selectedEmployee || !amount || parseFloat(amount) <= 0) {
-      alert("Por favor selecciona un empleado y un monto válido.");
-      return;
-    }
-
-    try {
-      // Simulamos la generación de un enlace de pago (en un backend real usarías la API de Mercado Pago)
-      const paymentLink = `https://www.mercadopago.com.ar/checkout/start?cvu=${selectedEmployee}&amount=${amount}`;
-      
-      if (paymentLink) {
-        onLinkGenerated(paymentLink); // Pasamos el enlace al componente padre (App.tsx)
-      } else {
-        alert("Hubo un problema al generar el enlace de pago.");
-      }
-    } catch (error) {
-      console.error("Error al generar el pago:", error);
-      alert("Error al generar el enlace de pago. Por favor, intenta nuevamente.");
+  
+  const handlePayment = () => {
+    if (amount && selectedEmployee) {
+      // Construir el enlace de pago para Mercado Pago con el alias del empleado
+      const paymentLink = `https://www.mercadopago.com.ar/transfer?alias=${selectedEmployee}&amount=${amount}&message=${message}`;
+      onLinkGenerated(paymentLink); // Pasar el enlace generado
     }
   };
 
@@ -37,8 +25,12 @@ const TipForm: React.FC<TipFormProps> = ({ selectedEmployee, onLinkGenerated }) 
         <TextField
           label="Monto"
           type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          value={amount || ""}
+          onChange={(e) => {
+            const value = e.target.value ? parseFloat(e.target.value) : null;
+            setAmount(value);
+            onAmountChange(value);
+          }}
           fullWidth
         />
         <TextField
@@ -51,9 +43,9 @@ const TipForm: React.FC<TipFormProps> = ({ selectedEmployee, onLinkGenerated }) 
           variant="contained"
           color="primary"
           onClick={handlePayment}
-          disabled={!selectedEmployee}
+          disabled={!amount || !selectedEmployee}
         >
-          Enviar Propina
+          Generar QR de Pago
         </Button>
       </Stack>
     </Box>

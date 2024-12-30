@@ -1,22 +1,22 @@
 import React from "react";
-import { Box, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
+import { Box, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 
 interface EmployeeListProps {
-  employees: { name: string; alias: string; photo: string }[];
-  onSelect: (employeeAlias: string) => void; // Se pasa el alias para seleccionar al empleado
+  employees: { name: string; alias: string }[];
+  onSelect: (employeeName: string) => void;
 }
 
 const EmployeeList: React.FC<EmployeeListProps> = ({ employees, onSelect }) => {
   return (
     <Box>
-      <FormControl fullWidth margin="normal">
+      <FormControl fullWidth>
         <InputLabel>Selecciona un empleado</InputLabel>
         <Select
           label="Selecciona un empleado"
-          onChange={(e) => onSelect(e.target.value as string)} // Pasa el alias del empleado seleccionado
+          onChange={(e) => onSelect(e.target.value as string)}
         >
           {employees.map((employee) => (
-            <MenuItem key={employee.alias} value={employee.alias}> 
+            <MenuItem key={employee.name} value={employee.name}>
               {employee.name}
             </MenuItem>
           ))}
