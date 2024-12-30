@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import EmployeeList from "../components/EmployeeList";
-import TipForm from "../components/TipForm";
+
 
 const HomePage: React.FC = () => {
   const employees = [
