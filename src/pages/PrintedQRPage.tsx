@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import QRGenerator from "../components/QRGenerator";
 
 const PrintedQRPage: React.FC = () => {
-  const appUrl = "http://localhost:3000"; // Cambiar al dominio de tu app en producción
+  const appUrl = "https://qr-generate-nano.netlify.app/pagos"; // Cambiar al dominio de tu app en producción
 
   return (
     <Box
