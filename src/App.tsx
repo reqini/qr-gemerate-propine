@@ -8,8 +8,8 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/pagos" element={<MainApp />} />
-        <Route path="/" element={<PrintedQRPage />} />
+        <Route path="/" element={<MainApp />} />
+        {/* <Route path="/" element={<PrintedQRPage />} /> */}
       </Routes>
     </Router>
   );

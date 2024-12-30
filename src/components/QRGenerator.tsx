@@ -6,11 +6,7 @@ interface QRGeneratorProps {
 }
 
 const QRGenerator: React.FC<QRGeneratorProps> = ({ link }) => {
-  return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-      <QRCodeCanvas value={link} size={200} />
-    </div>
-  );
+  return <QRCodeCanvas value={link} size={200} />;
 };
 
 export default QRGenerator;
